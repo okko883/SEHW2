@@ -1,6 +1,7 @@
 package pro.gradeSystem;
 
 import java.io.*;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -19,25 +20,19 @@ public class GradeSystems {
 		while((inputLine = br.readLine())!=null){
 			tmpLine = inputLine;
 			tmpArray = tmpLine.split("\\s");
-			int ID = Integer.parseInt(tmpArray[0]);
-			String name = tmpArray[1];
-			int lab1 = Integer.parseInt(tmpArray[2]);
-			int lab2 = Integer.parseInt(tmpArray[3]);
-			int lab3 = Integer.parseInt(tmpArray[4]);
-			int midTerm = Integer.parseInt(tmpArray[5]);
-			int finalExam = Integer.parseInt(tmpArray[6]);
-			
-			Grades aGrade = new Grades(ID,name,lab1,lab2,lab3,midTerm,finalExam,weights);
-			aList.put(ID, aGrade);
+			Grades aGrade = new Grades(Integer.parseInt(tmpArray[0]),tmpArray[1]
+					,Integer.parseInt(tmpArray[2]),Integer.parseInt(tmpArray[3])
+					,Integer.parseInt(tmpArray[4]),Integer.parseInt(tmpArray[5])
+					,Integer.parseInt(tmpArray[6]),weights);
+			aList.put(Integer.parseInt(tmpArray[0]), aGrade);
 		}
-		
 	}
 	public boolean containsID(int ID){
 		return aList.containsKey(ID);
 	}
 	public void showGrade(int ID){
 		Grades aGrade = aList.get(ID);
-		System.out.printf("%3s成績    lab1:\t\t%s", aGrade.getName(), passOrNot(aGrade.getLab1()));
+		System.out.printf("%s成績\tlab1:\t\t%s", aGrade.getName(), passOrNot(aGrade.getLab1()));
 		System.out.printf("        lab2:\t\t%s", passOrNot(aGrade.getLab2()));
 		System.out.printf("        lab3:\t\t%s", passOrNot(aGrade.getLab2()));
 		System.out.printf("        mid-term:\t%s", passOrNot(aGrade.getMidTerm()));
@@ -56,7 +51,7 @@ public class GradeSystems {
 			if(aGrade.getTotalGrade()<value.getTotalGrade())
 				++rank;
 		}
-		System.out.printf("%3s排名為第%d\n", aGrade.getName(), rank);
+		System.out.printf("%s排名為第%d\n", aGrade.getName(), rank);
 	}
 	public void showAverage(){
 		float[] grades = new float[5];
@@ -73,10 +68,10 @@ public class GradeSystems {
 		for(int i=0;i<5;i++){
 			grades[i] /= aList.size();
 		}
-		System.out.printf("班平均: lab1:\t %d\n", (int)(Math.round(grades[0])));
-		System.out.printf("      lab2:\t %d\n", (int)(Math.round(grades[1])));
-		System.out.printf("      lab3:\t %d\n", (int)(Math.round(grades[2])));
-		System.out.printf("      mid-term:\t %d\n", (int)(Math.round(grades[3])));
+		System.out.printf("班平均: lab1:\t  %d\n", (int)(Math.round(grades[0])));
+		System.out.printf("      lab2:\t  %d\n", (int)(Math.round(grades[1])));
+		System.out.printf("      lab3:\t  %d\n", (int)(Math.round(grades[2])));
+		System.out.printf("      mid-term:\t  %d\n", (int)(Math.round(grades[3])));
 		System.out.printf("      final exam: %d\n", (int)(Math.round(grades[4])));
 	}
 	public void updateWeights(){
@@ -99,9 +94,10 @@ public class GradeSystems {
 		System.out.printf("\tfinal exam\t\t%d%%\n", (int)(weights[4]*100));
 	}
 	private float[] getNewWeights(){
-		Scanner console = new Scanner(System.in);
-		System.out.println("輸入新配分(由左而右依序輸入 lab1 lab2 lab3 mid-term finalexam，以空白分開):");
+		System.out.println("輸入新配分   注意:範圍須介於0~100之間，五項相加剛好等於100");
+		System.out.println("(由左而右依序輸入 lab1 lab2 lab3 mid-term finalexam，以空白分開):");
 		float[] newWeights = new float[5];
+		Scanner console = new Scanner(System.in);
 		for(int i=0;i<5;i++){
 			newWeights[i] = console.nextFloat();
 		}
@@ -121,9 +117,23 @@ public class GradeSystems {
 		System.out.print("以上正確嗎？Y(Yes) 或 N(No) (輸入錯誤指令視同重新輸入)");
 		Scanner console = new Scanner(System.in);
 		String cmd = console.nextLine().toLowerCase();
-		if(cmd.equals("y")||cmd.equals("yes"))	return true;
+		if(cmd.equals("y")||cmd.equals("yes"))	return inRangeOrNot(newWeights);
 		else	return false;
 	}
+	private boolean inRangeOrNot(float[] newWeights){
+		int total = 0;
+		for(int i=0;i<5;i++){
+			total += (int)newWeights[i];
+			if((int)newWeights[i]<0 || (int)newWeights[i]>100){
+				System.out.printf("調整失敗!(第%d項超出範圍) 請重新輸入\n", i+1); return false;
+			}
+		}
+		if(total==100)	return true;
+		else{
+			System.out.println("調整失敗!(五項總和不等於100) 請重新輸入"); return false;
+		}
+	}
+	
 	public String getThisIDName(int ID){
 		return aList.get(ID).getName();
 	}
