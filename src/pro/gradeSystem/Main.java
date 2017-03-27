@@ -1,6 +1,8 @@
 package pro.gradeSystem;
 
+import java.io.Console;
 import java.io.IOException;
+import java.util.Scanner;
 
 /*
  * class Main
@@ -16,7 +18,7 @@ import java.io.IOException;
  * public static void main(args) {
  * 		try {
  * 			aUI = new UI(); // 建構aUI物件作爲成績系統進入點
- * 		} catch (NoSuchIDEExceptions) { print "ID錯了!" } // 處理輸入錯誤ID
+ * 		} catch (NoSuchIDExceptions) { print "ID錯了!" } // 處理輸入錯誤ID
  * 		catch (NumberFormatException) { print "格式錯誤!" } // 處理格式錯誤問題
  * 		catch (IOException) { print "project根目錄中不存在gradeinput.txt!" } // 處理讀檔錯誤
  * }
@@ -25,13 +27,14 @@ import java.io.IOException;
 public class Main {
 	public static void main(String[] args) {
 		try {
+			Scanner console = new Scanner(System.in);
 			UI aUI = new UI();
 		} catch (NoSuchIDExceptions e){
-			System.out.println("ID錯了!");
+			System.out.println("ID錯了！");
 		} catch (NumberFormatException e) {
-			System.out.println("格式錯誤!");
+			System.out.println("格式錯誤！");
 		} catch (IOException e) {
-			System.out.println("project根目錄中不存在gradeinput.txt!");
+			System.out.println("project根目錄中不存在gradeinput.txt！");
 		}
 	}
 }
@@ -46,6 +49,6 @@ public class Main {
 
 class NoSuchIDExceptions extends Exception {
 	public NoSuchIDExceptions(int ID) {
-		super("ERROR:"+ID);
+		super("ERROR >> " + ID);
 	}
 }

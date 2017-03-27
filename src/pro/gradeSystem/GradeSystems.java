@@ -1,9 +1,7 @@
 package pro.gradeSystem;
 
 import java.io.*;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class GradeSystems {
@@ -103,21 +101,21 @@ public class GradeSystems {
 		System.out.printf("\tfinal exam\t%d%%\n", (int)(weights[4]*100));
 	}
 	private float[] getNewWeights() {
-		Scanner console = new Scanner(System.in);
 		float[] newWeights = new float[5];
 		
 		System.out.println("\t輸入新配分");
-		System.out.printf("\tlab1\t");
-		newWeights[0] = console.nextFloat();
-		System.out.printf("\tlab2\t");
-		newWeights[1] = console.nextFloat();
-		System.out.printf("\tlab3\t");
-		newWeights[2] = console.nextFloat();
-		System.out.printf("\tmid-term\t");
-		newWeights[3] = console.nextFloat();
-		System.out.printf("\tfinal exam\t");
-		newWeights[4] = console.nextFloat();
+		newWeights[0] = getSpecificWeight("lab1");
+		newWeights[1] = getSpecificWeight("lab2");
+		newWeights[2] = getSpecificWeight("lab3");
+		newWeights[3] = getSpecificWeight("mid-term");
+		newWeights[4] = getSpecificWeight("final exam");
 		return newWeights;
+	}
+	
+	private float getSpecificWeight(String quiz) {
+		Scanner console = new Scanner(System.in);
+		System.out.printf("\t%s\t", quiz);
+		return console.nextFloat();
 	}
 	
 	private void setWeights(float[] newWeights) {
