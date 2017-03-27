@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Scanner;
 
 /*
- * method UI
+ * class UI
  * 負責接受使用者輸入欲查詢的ID，對欲查詢對象接受指令動作，將指令傳給下層的GradeSystems執行
  * ---
  * Member Data: 
@@ -65,7 +65,9 @@ public class UI {
 				System.out.println();
 			}
 		} catch (NumberFormatException e) {
-			System.out.println("請輸入9碼數字ID或是Q!"); 
+			System.out.println("請輸入9碼數字ID或是Q！"); 
+		} catch (NoSuchCommandExceptions e) {
+			System.out.println("指令錯了！");
 		} finally {
 			showFinishMsg();
 		}
@@ -79,7 +81,7 @@ public class UI {
 		}
 	}
 
-	public void promptCommand(int ID) {
+	public void promptCommand(int ID) throws NoSuchCommandExceptions {
 		Scanner console = new Scanner(System.in);
 		
 first:	while (true) {
@@ -91,7 +93,7 @@ first:	while (true) {
 				case "A": aGradeSystem.showAverage(); break;
 				case "W": aGradeSystem.updateWeights(); break;
 				case "E": break first;
-				default: System.out.println("指令錯了!");
+				default: throw new NoSuchCommandExceptions("指令錯了！");
 			}
 		}
 	}
@@ -113,5 +115,19 @@ first:	while (true) {
 		System.out.println("\t3) A 顯示平均 (Average)");
 		System.out.println("\t4) W 更新配分 (Weight)");
 		System.out.println("\t5) E 離開選單 (Exit)");
+	}
+}
+
+/*
+ * class NoSuchCommandExceptions
+ * 接收指令錯誤的界面
+ * ---
+ * Member Function: 
+ * 1. NoSuchCommandExceptions(cmd) // 建構子
+ */
+
+class NoSuchCommandExceptions extends Exception {
+	public NoSuchCommandExceptions(String cmd) {
+		super("ERROR >> " + cmd);
 	}
 }
