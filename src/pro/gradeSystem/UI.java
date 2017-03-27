@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Scanner;
 
 /*
- * method UI
+ * class UI
  * 負責接受使用者輸入欲查詢的ID，對欲查詢對象接受指令動作，將指令傳給下層的GradeSystems執行
  * ---
  * Member Data: 

@@ -9,7 +9,10 @@ import java.io.IOException;
  * Member Function: 
  * 1. main(args) // 程式進入點
  * ---
- * Pseudo code:
+ * Pseudo Code: 
+ * 1. 建構aUI進入程式
+ * 2. 接收可能的錯誤
+ * 3. 結束程式
  * public static void main(args) {
  * 		try {
  * 			aUI = new UI(); // 建構aUI物件作爲成績系統進入點
