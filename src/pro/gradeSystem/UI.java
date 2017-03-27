@@ -6,65 +6,72 @@ import java.util.Scanner;
 public class UI {
 	private GradeSystems aGradeSystem;
 	
-	public UI() throws NoSuchIDExceptions, NoSuchCommandExceptions, NumberFormatException, IOException {	
-		try{
+	public UI() throws NoSuchIDExceptions, NumberFormatException, IOException {	
+		try {
 			aGradeSystem = new GradeSystems();
-			while(true){
+			
+			while (true) {
 				String cmdID = promptID();
-				if(cmdID.equals("Q")||cmdID.equals("q")){
+				
+				if (cmdID.equals("Q")) {
 					break;
-				}else{
+				} else {
 					int ID = Integer.parseInt(cmdID);
-					if(checkID(ID)){
+					
+					if (checkID(ID)) {
 						showWelcomeMsg(ID);
 						promptCommand(ID);
 					}
 				}
 				System.out.println();
 			}
-		}finally{
+		} finally {
 			showFinishMsg();
 		}
 	}
 	
-	public boolean checkID(int ID) throws NoSuchIDExceptions{
-		if(aGradeSystem.containsID(ID)){
+	public boolean checkID(int ID) throws NoSuchIDExceptions {
+		if (aGradeSystem.containsID(ID)) {
 			return true;
-		}else{
+		} else {
 			throw new NoSuchIDExceptions(ID);
 		}
-		
 	}
-	public void promptCommand(int ID) throws NoSuchCommandExceptions{
+
+	public void promptCommand(int ID) {
 		Scanner console = new Scanner(System.in);
-first:	while(true){
-			System.out.println("¨Ï¥ÎªÌ¿é¤J: ");
+		
+first:	while (true) {
+			System.out.printf("ä½¿ç”¨è€…è¼¸å…¥ï¼š");
 			String cmd = console.nextLine();
-			switch(cmd){
+			switch (cmd) {
 				case "G": aGradeSystem.showGrade(ID); break;
-				case "R": aGradeSystem.showRank(ID);	break;
-				case "A": aGradeSystem.showAverage();	break;
-				case "W": aGradeSystem.updateWeights();	break;
+				case "R": aGradeSystem.showRank(ID); break;
+				case "A": aGradeSystem.showAverage(); break;
+				case "W": aGradeSystem.updateWeights(); break;
 				case "E": break first;
-				default: throw new NoSuchCommandExceptions(cmd);
+				default: System.out.println("æŒ‡ä»¤éŒ¯äº†!");
 			}
 		}
 	}
-	public String promptID(){
-		System.out.println("¿é¤J ID ©Î    Q(µ²§ô¨Ï¥Î)");
+	
+	public String promptID() {
+		System.out.printf("è¼¸å…¥ ID æˆ– Q(çµæŸä½¿ç”¨)ï¼Ÿ");
 		Scanner console = new Scanner(System.in);
 		String cmdForID = console.nextLine();
 		return cmdForID;
 	}
-	public void showFinishMsg(){
-		System.out.println("¨t²Î¤wµ²§ô");
+	
+	public void showFinishMsg() {
+		System.out.println("çµæŸäº†");
 	}
-	public void showWelcomeMsg(int ID){
+	
+	public void showWelcomeMsg(int ID) {
 		System.out.printf("Welcome %s\n", aGradeSystem.getThisIDName(ID));
-		System.out.println("¿é¤J«ü¥O  1) G Åã¥Ü¦¨ÁZ (Grade)");
-		System.out.println("      2) R Åã¥Ü±Æ¦W (Rank)");
-		System.out.println("      3) A Åã¥Ü¥­§¡ (Average)");
-		System.out.println("      4) W §ó·s°t¤À (Weight)");
-		System.out.println("      5) E Â÷¶}¿ï³æ (Exit))");
+		System.out.println("è¼¸å…¥æŒ‡ä»¤\t1) G é¡¯ç¤ºæˆç¸¾ (Grade)");
+		System.out.println("\t2) R é¡¯ç¤ºæ’å (Rank)");
+		System.out.println("\t3) A é¡¯ç¤ºå¹³å‡ (Average)");
+		System.out.println("\t4) W æ›´æ–°é…åˆ† (Weight)");
+		System.out.println("\t5) E é›¢é–‹é¸å–® (Exit)");
 	}
 }

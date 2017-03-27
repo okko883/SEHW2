@@ -6,19 +6,21 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class GradeSystems {
-	private float[] weights = {(float) 0.1,(float) 0.1,(float) 0.1,(float) 0.3,(float) 0.4};
-	private HashMap<Integer,Grades> aList = new HashMap<>();
+	private float[] weights = {0.1f, 0.1f, 0.1f, 0.3f, 0.4f};
+	private HashMap<Integer, Grades> aList = new HashMap<>();
 	
-	public GradeSystems() throws NumberFormatException, IOException{
+	public GradeSystems() throws NumberFormatException, IOException {
 		String path = "gradeinput.txt";
 		File file = new File(path);
-		InputStreamReader inReader = new InputStreamReader(new FileInputStream(file),"UTF-8");
+		InputStreamReader inReader = new InputStreamReader(new FileInputStream(file), "UTF-8");
 		BufferedReader br = new BufferedReader(inReader);
 		String inputLine, tmpLine;
 		String[] tmpArray = new String[7];
-		while((inputLine = br.readLine())!=null){
+		
+		while((inputLine = br.readLine()) != null){
 			tmpLine = inputLine;
 			tmpArray = tmpLine.split("\\s");
+			
 			int ID = Integer.parseInt(tmpArray[0]);
 			String name = tmpArray[1];
 			int lab1 = Integer.parseInt(tmpArray[2]);
@@ -27,40 +29,41 @@ public class GradeSystems {
 			int midTerm = Integer.parseInt(tmpArray[5]);
 			int finalExam = Integer.parseInt(tmpArray[6]);
 			
-			Grades aGrade = new Grades(ID,name,lab1,lab2,lab3,midTerm,finalExam,weights);
+			Grades aGrade = new Grades(ID, name, lab1, lab2, lab3, midTerm, finalExam, weights);
 			aList.put(ID, aGrade);
 		}
-		
 	}
-	public boolean containsID(int ID){
+	public boolean containsID(int ID) {
 		return aList.containsKey(ID);
 	}
-	public void showGrade(int ID){
+	public void showGrade(int ID) {
 		Grades aGrade = aList.get(ID);
-		System.out.printf("%3s¦¨ÁZ    lab1:\t\t%s", aGrade.getName(), passOrNot(aGrade.getLab1()));
-		System.out.printf("        lab2:\t\t%s", passOrNot(aGrade.getLab2()));
-		System.out.printf("        lab3:\t\t%s", passOrNot(aGrade.getLab2()));
-		System.out.printf("        mid-term:\t%s", passOrNot(aGrade.getMidTerm()));
-		System.out.printf("        final exam:\t%s", passOrNot(aGrade.getFinalExam()));
-		System.out.printf("        total grade:\t%s", passOrNot(aGrade.getTotalGrade()));
+		System.out.printf("%3sæˆç¸¾ï¼š\tlab1ï¼š\t%s\n", aGrade.getName(), passOrNot(aGrade.getLab1()));
+		System.out.printf("\t\tlab2ï¼š\t%s\n", passOrNot(aGrade.getLab2()));
+		System.out.printf("\t\tlab3ï¼š\t%s\n", passOrNot(aGrade.getLab2()));
+		System.out.printf("\t\tmid-termï¼š\t%s\n", passOrNot(aGrade.getMidTerm()));
+		System.out.printf("\t\tfinal examï¼š\t%s\n", passOrNot(aGrade.getFinalExam()));
+		System.out.printf("\t\ttotal gradeï¼š\t%s\n", passOrNot(aGrade.getTotalGrade()));
 	}
-	private String passOrNot(int grade){
-		if(grade>=60)	return Integer.toString(grade) + "\n";
-		else	return Integer.toString(grade) + "*\n";
+	private String passOrNot(int grade) {
+		if (grade >= 60) return Integer.toString(grade);
+		else return Integer.toString(grade) + "*";
 	}
 	
-	public void showRank(int ID){
+	public void showRank(int ID) {
 		int rank = 1;
 		Grades aGrade = aList.get(ID);
-		for(Grades value: aList.values()){
-			if(aGrade.getTotalGrade()<value.getTotalGrade())
+		
+		for (Grades value: aList.values()) {
+			if (aGrade.getTotalGrade() < value.getTotalGrade())
 				++rank;
 		}
-		System.out.printf("%3s±Æ¦W¬°²Ä%d\n", aGrade.getName(), rank);
+		System.out.printf("%3sæŽ’åç¬¬%d\n", aGrade.getName(), rank);
 	}
-	public void showAverage(){
+	
+	public void showAverage() {
 		float[] grades = new float[5];
-		for(Grades value: aList.values()){
+		for (Grades value: aList.values()) {
 			grades[0] += value.getLab1();
 			grades[1] += value.getLab2();
 			grades[2] += value.getLab3();
@@ -69,62 +72,75 @@ public class GradeSystems {
 		}
 		calculateAndShowAverage(grades);
 	}
-	private void calculateAndShowAverage(float[] grades){
-		for(int i=0;i<5;i++){
+	private void calculateAndShowAverage(float[] grades) {
+		for (int i=0;i<5;i++) {
 			grades[i] /= aList.size();
 		}
-		System.out.printf("¯Z¥­§¡: lab1:\t %d\n", (int)(Math.round(grades[0])));
-		System.out.printf("      lab2:\t %d\n", (int)(Math.round(grades[1])));
-		System.out.printf("      lab3:\t %d\n", (int)(Math.round(grades[2])));
-		System.out.printf("      mid-term:\t %d\n", (int)(Math.round(grades[3])));
-		System.out.printf("      final exam: %d\n", (int)(Math.round(grades[4])));
+		System.out.printf("ç­å¹³å‡ï¼š\tlab1ï¼š\t%d\n", (int)(Math.round(grades[0])));
+		System.out.printf("\tlab2ï¼š\t%d\n", (int)(Math.round(grades[1])));
+		System.out.printf("\tlab3ï¼š\t%d\n", (int)(Math.round(grades[2])));
+		System.out.printf("\tmid-termï¼š\t%d\n", (int)(Math.round(grades[3])));
+		System.out.printf("\tfinal examï¼š\t%d\n", (int)(Math.round(grades[4])));
 	}
 	public void updateWeights(){
 		showOldWeights();
-		while(true){
+		while (true) {
 			float[] newWeights = getNewWeights();
 			if(checkNewWeights(newWeights)){
 				setWeights(newWeights);
-				System.out.println("¥[Åv¤w§ó·s!");
+				System.out.println("åŠ æ¬Šå·²æ›´æ–°!");
 				return;
 			}
 		}	
 	}
 	private void showOldWeights(){
-		System.out.println("ÂÂ°t¤À");
-		System.out.printf("\tlab1\t\t\t%d%%\n", (int)(weights[0]*100));
-		System.out.printf("\tlab2\t\t\t%d%%\n", (int)(weights[1]*100));
-		System.out.printf("\tlab3\t\t\t%d%%\n", (int)(weights[2]*100));
-		System.out.printf("\tmid-term\t\t%d%%\n", (int)(weights[3]*100));
-		System.out.printf("\tfinal exam\t\t%d%%\n", (int)(weights[4]*100));
+		System.out.println("\tèˆŠé…åˆ†");
+		System.out.printf("\tlab1\t%d%%\n", (int)(weights[0]*100));
+		System.out.printf("\tlab2\t%d%%\n", (int)(weights[1]*100));
+		System.out.printf("\tlab3\t%d%%\n", (int)(weights[2]*100));
+		System.out.printf("\tmid-term\t%d%%\n", (int)(weights[3]*100));
+		System.out.printf("\tfinal exam\t%d%%\n", (int)(weights[4]*100));
 	}
-	private float[] getNewWeights(){
+	private float[] getNewWeights() {
 		Scanner console = new Scanner(System.in);
-		System.out.println("¿é¤J·s°t¤À(¥Ñ¥ª¦Ó¥k¨Ì§Ç¿é¤J lab1 lab2 lab3 mid-term finalexam¡A¥HªÅ¥Õ¤À¶}):");
 		float[] newWeights = new float[5];
-		for(int i=0;i<5;i++){
-			newWeights[i] = console.nextFloat();
-		}
+		
+		System.out.println("\tè¼¸å…¥æ–°é…åˆ†");
+		System.out.printf("\tlab1\t");
+		newWeights[0] = console.nextFloat();
+		System.out.printf("\tlab2\t");
+		newWeights[1] = console.nextFloat();
+		System.out.printf("\tlab3\t");
+		newWeights[2] = console.nextFloat();
+		System.out.printf("\tmid-term\t");
+		newWeights[3] = console.nextFloat();
+		System.out.printf("\tfinal exam\t");
+		newWeights[4] = console.nextFloat();
 		return newWeights;
 	}
-	private void setWeights(float[] newWeights){
-		for(int i=0;i<5;i++){
-			weights[i] = newWeights[i];
+	
+	private void setWeights(float[] newWeights) {
+		for (int i = 0; i < 5; i++) {
+			weights[i] = newWeights[i] / 100.0f;
 		}
 	}
-	private boolean checkNewWeights(float[] newWeights){
-		System.out.printf("½Ð½T»{·s°t¤À\n\tlab1\t\t\t%d%%\n", (int)(newWeights[0]));
-		System.out.printf("\tlab2\t\t\t%d%%\n", (int)(newWeights[1]));
-		System.out.printf("\tlab3\t\t\t%d%%\n", (int)(newWeights[2]));
-		System.out.printf("\tmid-term\t\t%d%%\n", (int)(newWeights[3]));
-		System.out.printf("\tfinal exam\t\t%d%%\n", (int)(newWeights[4]));
-		System.out.print("¥H¤W¥¿½T¶Ü¡HY(Yes) ©Î N(No) (¿é¤J¿ù»~«ü¥Oµø¦P­«·s¿é¤J)");
+	
+	private boolean checkNewWeights(float[] newWeights) {
 		Scanner console = new Scanner(System.in);
-		String cmd = console.nextLine().toLowerCase();
-		if(cmd.equals("y")||cmd.equals("yes"))	return true;
-		else	return false;
+		
+		System.out.printf("\tè«‹ç¢ºèªæ–°é…åˆ†\n\tlab1\t%d%%\n", (int)(newWeights[0]));
+		System.out.printf("\tlab2\t%d%%\n", (int)(newWeights[1]));
+		System.out.printf("\tlab3\t%d%%\n", (int)(newWeights[2]));
+		System.out.printf("\tmid-term\t%d%%\n", (int)(newWeights[3]));
+		System.out.printf("\tfinal exam\t%d%%\n", (int)(newWeights[4]));
+		System.out.printf("\tä»¥ä¸Šæ­£ç¢ºå—Žï¼ŸY(Yes) æˆ– N(No)\nä½¿ç”¨è€…è¼¸å…¥ï¼š");
+		
+		String cmd = console.nextLine();
+		if (cmd.equals("Y") || cmd.equals("Yes")) return true;
+		else return false;
 	}
-	public String getThisIDName(int ID){
+	
+	public String getThisIDName(int ID) {
 		return aList.get(ID).getName();
 	}
 }

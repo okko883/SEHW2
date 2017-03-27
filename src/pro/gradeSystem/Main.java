@@ -3,31 +3,21 @@ package pro.gradeSystem;
 import java.io.IOException;
 
 public class Main {
-
 	public static void main(String[] args) {
-		try{
+		try {
 			UI ui = new UI();
 		} catch (NoSuchIDExceptions e){
-			System.out.println("¤£¦s¦bªºID!");
-		} catch (NoSuchCommandExceptions e) {
-			System.out.println("«ü¥O¿é¤J¿ù»~!");
+			System.out.println("IDéŒ¯äº†!");
 		} catch (NumberFormatException e) {
-			System.out.println("®æ¦¡¿ù»~!");
+			System.out.println("æ ¼å¼éŒ¯èª¤!");
 		} catch (IOException e) {
-			System.out.println("project®Ú¥Ø¿ı¤¤¤£¦s¦bgradeinput.txt!");
+			System.out.println("projectæ ¹ç›®éŒ„ä¸­ä¸å­˜åœ¨gradeinput.txt!");
 		}
 	}
-	
 }
 
-class NoSuchIDExceptions extends Exception{
-	public NoSuchIDExceptions(int ID){
+class NoSuchIDExceptions extends Exception {
+	public NoSuchIDExceptions(int ID) {
 		super("ERROR:"+ID);
 	}
-}
-
-class NoSuchCommandExceptions extends Exception{
-	public NoSuchCommandExceptions(String cmd){
-		super("ERROR:"+cmd);
-	}	
 }
