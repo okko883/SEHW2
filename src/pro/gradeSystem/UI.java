@@ -3,6 +3,45 @@ package pro.gradeSystem;
 import java.io.*;
 import java.util.Scanner;
 
+/*
+ * method UI
+ * 負責接受使用者輸入欲查詢的ID，對欲查詢對象接受指令動作，將指令傳給下層的GradeSystems執行
+ * ---
+ * Member Data: 
+ * 1. aGradeSystem
+ * ---
+ * Member Function: 
+ * 1. UI() // 建構子，作爲成績系統的進入點
+ * 2. checkID(ID) // 檢查資料庫是否有ID的資料
+ * 3. promptCommand(ID) // 取得並執行指令
+ * 4. promptID() // 取得ID
+ * 5. showFinishMsg() // 顯示系統結束訊息
+ * 6. showWelcomeMsg(ID) // 顯示歡迎資訊及指令選單
+ * ---
+ * Pseudo code
+ * 1. 建立aGradeSystem
+ * 2. 透過promptID得到ID Input，判斷是否為程式結束(Q)
+ * 3. 將promptID轉為Integer，透過checkID判斷aGradeSystem內有沒有這筆資料
+ * 4. 如果這筆ID存在則執行showWelcomeMsg和promptCommand
+ * 5. 執行showFinishMsg結束程式
+ * public UI() throws NoSuchIDExceptions, NumberFormatException, IOException {
+ * 		try {
+ * 			aGradeSystem = new GradeSystem(); // 建構aGradeSystem物件作爲成績資料庫
+ * 			while (true) {
+ * 				cmdID = promptID(); // 輸入學生ID
+ * 				if (`cmdID` is equal to `Q` or `q`) break; // 結束程式
+ * 				else {
+ * 					if (There is `cmdID` in `aGradeSystem`) {
+ * 						showWelcomeMsg(); // 顯示歡迎資訊及指令選單
+ * 						promptCommand(); // 取得並執行指令
+ * 					}
+ * 				}
+ * 			}
+ * 		} catch (NumberFormatException) { print "請輸入9碼數字ID或是Q!"} // 處理ID輸入錯誤
+ * 		finally { showFinishMsg() } // 顯示系統結束
+ * }
+ */
+
 public class UI {
 	private GradeSystems aGradeSystem;
 	
@@ -11,9 +50,9 @@ public class UI {
 			aGradeSystem = new GradeSystems();
 			
 			while (true) {
-				String cmdID = promptID();
+				String cmdID = promptID().toLowerCase();
 				
-				if (cmdID.equals("Q")) {
+				if (cmdID.equals("q")) {
 					break;
 				} else {
 					int ID = Integer.parseInt(cmdID);
@@ -25,6 +64,8 @@ public class UI {
 				}
 				System.out.println();
 			}
+		} catch (NumberFormatException e) {
+			System.out.println("請輸入9碼數字ID或是Q!"); 
 		} finally {
 			showFinishMsg();
 		}
@@ -43,7 +84,7 @@ public class UI {
 		
 first:	while (true) {
 			System.out.printf("使用者輸入：");
-			String cmd = console.nextLine();
+			String cmd = console.nextLine().toUpperCase();
 			switch (cmd) {
 				case "G": aGradeSystem.showGrade(ID); break;
 				case "R": aGradeSystem.showRank(ID); break;
@@ -58,8 +99,7 @@ first:	while (true) {
 	public String promptID() {
 		System.out.printf("輸入 ID 或 Q(結束使用)？");
 		Scanner console = new Scanner(System.in);
-		String cmdForID = console.nextLine();
-		return cmdForID;
+		return console.nextLine();
 	}
 	
 	public void showFinishMsg() {

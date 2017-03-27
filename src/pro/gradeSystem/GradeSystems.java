@@ -1,6 +1,7 @@
 package pro.gradeSystem;
 
 import java.io.*;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -73,7 +74,7 @@ public class GradeSystems {
 		calculateAndShowAverage(grades);
 	}
 	private void calculateAndShowAverage(float[] grades) {
-		for (int i=0;i<5;i++) {
+		for (int i = 0; i < 5; i++) {
 			grades[i] /= aList.size();
 		}
 		System.out.printf("班平均：\tlab1：\t%d\n", (int)(Math.round(grades[0])));
@@ -86,7 +87,7 @@ public class GradeSystems {
 		showOldWeights();
 		while (true) {
 			float[] newWeights = getNewWeights();
-			if(checkNewWeights(newWeights)){
+			if (checkNewWeights(newWeights)) {
 				setWeights(newWeights);
 				System.out.println("加權已更新!");
 				return;
@@ -135,11 +136,27 @@ public class GradeSystems {
 		System.out.printf("\tfinal exam\t%d%%\n", (int)(newWeights[4]));
 		System.out.printf("\t以上正確嗎？Y(Yes) 或 N(No)\n使用者輸入：");
 		
-		String cmd = console.nextLine();
-		if (cmd.equals("Y") || cmd.equals("Yes")) return true;
+		String cmd = console.nextLine().toLowerCase();
+		if (cmd.equals("y") || cmd.equals("yes")) return inRangeOrNot(newWeights);
 		else return false;
 	}
 	
+	private boolean inRangeOrNot(float[] newWeights) {
+		int total = 0;
+		for (int i = 0; i < 5; i++) {
+			total += (int)newWeights[i];
+			if ((int)newWeights[i] < 0 || (int)newWeights[i] > 100) {
+				System.out.printf("調整失敗！第%d項超出範圍，請重新輸入\n", i+1);
+				return false;
+			}
+		}
+		if (total == 100) return true;
+		else {
+			System.out.println("調整失敗！五項總和不等於100，請重新輸入");
+			return false;
+		}
+}
+
 	public String getThisIDName(int ID) {
 		return aList.get(ID).getName();
 	}

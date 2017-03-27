@@ -2,8 +2,8 @@ package pro.gradeSystem;
 
 public class Grades {
 	private int ID;
-	String name;
-	int lab1, lab2, lab3, midTerm, finalExam, totalGrade;
+	private String name;
+	private int lab1, lab2, lab3, midTerm, finalExam, totalGrade;
 	
 	public Grades(int ID, String name, int lab1, int lab2, int lab3, int midTerm, int finalExam, float[] weight) {
 		this.ID = ID;
