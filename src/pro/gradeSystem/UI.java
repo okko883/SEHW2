@@ -37,7 +37,9 @@ import java.util.Scanner;
  * 					}
  * 				}
  * 			}
- * 		} catch (NumberFormatException) { print "請輸入9碼數字ID或是Q!"} // 處理ID輸入錯誤
+ * 		} catch (NoSuchIDExceptions) { print "ID錯了！" } // 處理不存在的ID
+ *		catch (NumberFormatException) {	print "輸入格式內容錯誤！" } // 處理預料外的輸入格式
+ *		catch (NoSuchCommandExceptions) { print "指令錯了！" } // 處理不存在的指令
  * 		finally { showFinishMsg() } // 顯示系統結束
  * }
  */
@@ -45,7 +47,7 @@ import java.util.Scanner;
 public class UI {
 	private GradeSystems aGradeSystem;
 	
-	public UI() throws NoSuchIDExceptions, NumberFormatException, IOException {	
+	public UI() throws IOException {	
 		try {
 			aGradeSystem = new GradeSystems();
 			
@@ -64,8 +66,10 @@ public class UI {
 				}
 				System.out.println();
 			}
+		} catch (NoSuchIDExceptions e) {
+			System.out.println("ID錯了！"); 
 		} catch (NumberFormatException e) {
-			System.out.println("請輸入9碼數字ID或是Q！"); 
+			System.out.println("輸入格式內容錯誤！"); 
 		} catch (NoSuchCommandExceptions e) {
 			System.out.println("指令錯了！");
 		} finally {
@@ -129,5 +133,19 @@ first:	while (true) {
 class NoSuchCommandExceptions extends Exception {
 	public NoSuchCommandExceptions(String cmd) {
 		super("ERROR >> " + cmd);
+	}
+}
+
+/*
+ * class NoSuchIDExceptions
+ * 接收ID錯誤的界面
+ * ---
+ * Member Function: 
+ * 1. NoSuchIDExceptions(ID) // 建構子
+ */
+
+class NoSuchIDExceptions extends Exception {
+	public NoSuchIDExceptions(int ID) {
+		super("ERROR >> " + ID);
 	}
 }
