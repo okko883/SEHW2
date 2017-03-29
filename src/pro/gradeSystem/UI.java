@@ -5,11 +5,12 @@ import java.util.Scanner;
 
 /*
  * class UI
+ * ---
  * 負責接受使用者輸入欲查詢的ID，對欲查詢對象接受指令動作，將指令傳給下層的GradeSystems執行
- * ---
+ * 
  * Member Data: 
- * 1. aGradeSystem
- * ---
+ * 1. aGradeSystem // 成績系統物件
+ * 
  * Member Function: 
  * 1. UI() // 建構子，作爲成績系統的進入點
  * 2. checkID(ID) // 檢查資料庫是否有ID的資料
@@ -17,36 +18,29 @@ import java.util.Scanner;
  * 4. promptID() // 取得ID
  * 5. showFinishMsg() // 顯示系統結束訊息
  * 6. showWelcomeMsg(ID) // 顯示歡迎資訊及指令選單
- * ---
- * Pseudo code
- * 1. 建立aGradeSystem
- * 2. 透過promptID得到ID Input，判斷是否為程式結束(Q)
- * 3. 將promptID轉為Integer，透過checkID判斷aGradeSystem內有沒有這筆資料
- * 4. 如果這筆ID存在則執行showWelcomeMsg和promptCommand
- * 5. 執行showFinishMsg結束程式
- * public UI() throws NoSuchIDExceptions, NumberFormatException, IOException {
- * 		try {
- * 			aGradeSystem = new GradeSystem(); // 建構aGradeSystem物件作爲成績資料庫
- * 			while (true) {
- * 				cmdID = promptID(); // 輸入學生ID
- * 				if (`cmdID` is equal to `Q` or `q`) break; // 結束程式
- * 				else {
- * 					if (There is `cmdID` in `aGradeSystem`) {
- * 						showWelcomeMsg(); // 顯示歡迎資訊及指令選單
- * 						promptCommand(); // 取得並執行指令
- * 					}
- * 				}
- * 			}
- * 		} catch (NoSuchIDExceptions) { print "ID錯了！" } // 處理不存在的ID
- *		catch (NumberFormatException) {	print "輸入格式內容錯誤！" } // 處理預料外的輸入格式
- *		catch (NoSuchCommandExceptions) { print "指令錯了！" } // 處理不存在的指令
- * 		finally { showFinishMsg() } // 顯示系統結束
- * }
  */
 
 public class UI {
 	private GradeSystems aGradeSystem;
 	
+	/* method UI()
+	 * ---
+	 * UI物件建構子，建構UI界面並開始與使用者互動
+	 * 
+	 * Pseudo Code:  
+	 * 1. 建立aGradeSystem
+	 * 2. while true
+	 * 	1. 透過promptID得到ID輸入
+	 * 	2. 判斷是否為程式結束(Q)
+	 *	3. 若是，則end while
+	 * 	4. 若非，則透過checkID判斷aGradeSystem內有沒有這筆ID
+	 * 	5. 若是，則執行showWelcomeMsg和promptCommand
+	 * 3. 接收可能的錯誤
+	 * 4. 執行showFinishMsg結束程式
+	 * 
+	 * Time Estimate: (Depends on input)
+	 * Example: UI aUI = new UI(); 建構UI界面並開始與使用者互動
+	 */
 	public UI() throws IOException {	
 		try {
 			aGradeSystem = new GradeSystems();
@@ -74,8 +68,24 @@ public class UI {
 			showFinishMsg();
 		}
 	}
-	
-	public boolean checkID(int ID) throws NoSuchIDExceptions {
+
+	/*
+	 * method checkID(ID)
+	 * ---
+	 * 檢查ID是否在成績系統內
+	 * 
+	 * @param ID 用來檢查的ID
+	 * @return boolean，若true則這筆ID存在於成績系統內
+	 * @throw NoSuchIDExceptions 若這筆這筆ID不存在於成績系統內，則丟出此例外
+	 * 
+	 * Pseudo Code: 
+	 * 1. 檢查ID是否在aGradeSystem內
+	 * 2. 若是，則回傳true
+	 * 3. 若非，則丟出NoSuchIDExceptions
+	 * 
+	 * Example: aUI.checkID(955002056); 回傳true
+	 */
+	private boolean checkID(int ID) throws NoSuchIDExceptions {
 		if (aGradeSystem.containsID(ID)) {
 			return true;
 		} else {
@@ -83,7 +93,26 @@ public class UI {
 		}
 	}
 
-	public void promptCommand(int ID) throws NoSuchCommandExceptions {
+	/* method promptCommand(ID)
+	 * ---
+	 * 要求使用者輸入指令，並依據指令執行程式
+	 * 
+	 * @param ID 指令指令的ID對象
+	 * @throw NoSuchCommandExceptions 若輸入不存在的指令，則丟出此意外
+	 * 
+	 * Pseudo Code: 
+	 * 1. while true
+	 * 	1. 要求使用者輸入指令
+	 * 	2. 若指令爲G，則執行aGradeSystem.showGrade(ID);
+	 * 	3. 若指令爲R，則執行aGradeSystem.showRank(ID);
+	 * 	4. 若指令爲A，則執行aGradeSystem.showAverage();
+	 * 	5. 若指令爲W，則執行aGradeSystem.updateWeights();
+	 * 	6. 若指令爲E，則end while
+	 * 	7. 若非上述指令，則丟出NoSuchCommandExceptions
+	 * 
+	 * Example: aUI.promptCommand(955002056); 要求輸入指令，若輸入R，則顯示排名
+	 */
+	private void promptCommand(int ID) throws NoSuchCommandExceptions {
 		Scanner console = new Scanner(System.in);
 		
 first:	while (true) {
@@ -100,17 +129,52 @@ first:	while (true) {
 		}
 	}
 	
-	public String promptID() {
+	/*
+	 * method promptID()
+	 * ---
+	 * 要求使用者輸入ID，或者Q（結束）
+	 * 
+	 * @return String，爲使用者輸入的內容
+	 * 
+	 * Pseudo Code: 
+	 * 1. 要求輸入ID或Q
+	 * 2. 回傳下一行輸入內容
+	 * 
+	 * Example: aUI.promptID(); 要求輸入ID，若輸入955002056，則回傳"955002056"
+	 */
+	private String promptID() {
 		System.out.printf("輸入 ID 或 Q(結束使用)？");
 		Scanner console = new Scanner(System.in);
 		return console.nextLine();
 	}
 	
-	public void showFinishMsg() {
+	/*
+	 * method showFinishMsg()
+	 * ---
+	 * 印出系統結束訊息
+	 * 
+	 * Pseudo Code: 
+	 * 1. 印出系統結束訊息
+	 * 
+	 * Example: aUI.showFinishMsg(); 印出"結束了"
+	 */
+	private void showFinishMsg() {
 		System.out.println("結束了");
 	}
 	
-	public void showWelcomeMsg(int ID) {
+	/*
+	 * method showWelcomeMsg(ID)
+	 * ---
+	 * 印出歡迎訊息及功能選單
+	 * 
+	 * @param ID 用來顯示使用者姓名
+	 * 
+	 * Pseudo Code: 
+	 * 1. 印出歡迎訊息及功能選單
+	 * 
+	 * Example: aUI.showWelcomeMsg(955002056); 顯示"Welcome 許文馨..."
+	 */
+	private void showWelcomeMsg(int ID) {
 		System.out.printf("Welcome %s\n", aGradeSystem.getThisIDName(ID));
 		System.out.println("輸入指令\t1) G 顯示成績 (Grade)");
 		System.out.println("\t2) R 顯示排名 (Rank)");
@@ -131,8 +195,20 @@ first:	while (true) {
  * Member Function: 
  * 1. NoSuchCommandExceptions(cmd) // 建構子
  */
-
 class NoSuchCommandExceptions extends Exception {
+	/*
+	 * method NoSuchCommandExceptions(cmd)
+	 * ---
+	 * NoSuchCommandExceptions 建構子
+	 * 
+	 * @param cmd 含有錯誤的指令
+	 * 
+	 * Pseudo Code: 
+	 * 1. 呼叫Exception建構子
+	 * 
+	 * Time Estimate: O(1)
+	 * Example: throw NoSuchCommandExceptions("J"); 丟出NoSuchCommandExceptions
+	 */
 	public NoSuchCommandExceptions(String cmd) {
 		super("ERROR >> " + cmd);
 	}
@@ -145,8 +221,20 @@ class NoSuchCommandExceptions extends Exception {
  * Member Function: 
  * 1. NoSuchIDExceptions(ID) // 建構子
  */
-
 class NoSuchIDExceptions extends Exception {
+	/*
+	 * method NoSuchIDExceptions(ID)
+	 * ---
+	 * NoSuchIDExceptions 建構子
+	 * 
+	 * @param ID 含有問題的ID
+	 * 
+	 * Pseudo Code: 
+	 * 1. 呼叫Exception建構子
+	 * 
+	 * Time Estimate: O(1)
+	 * Example: throw NoSuchIDExceptions(0000); 丟出NoSuchIDExceptions
+	 */
 	public NoSuchIDExceptions(int ID) {
 		super("ERROR >> " + ID);
 	}
