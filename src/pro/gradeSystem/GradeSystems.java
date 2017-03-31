@@ -37,12 +37,12 @@ public class GradeSystems {
 	}
 	public void showGrade(int ID) {
 		Grades aGrade = aList.get(ID);
-		System.out.printf("%3s成績：\tlab1：\t%s\n", aGrade.getName(), passOrNot(aGrade.getLab1()));
-		System.out.printf("\t\tlab2：\t%s\n", passOrNot(aGrade.getLab2()));
-		System.out.printf("\t\tlab3：\t%s\n", passOrNot(aGrade.getLab2()));
-		System.out.printf("\t\tmid-term：\t%s\n", passOrNot(aGrade.getMidTerm()));
-		System.out.printf("\t\tfinal exam：\t%s\n", passOrNot(aGrade.getFinalExam()));
-		System.out.printf("\t\ttotal grade：\t%s\n", passOrNot(aGrade.getTotalGrade()));
+		System.out.printf("%3s成績：lab1：\t\t%s\n", aGrade.getName(), passOrNot(aGrade.getLab1()));
+		System.out.printf("\tlab2：\t\t%s\n", passOrNot(aGrade.getLab2()));
+		System.out.printf("\tlab3：\t\t%s\n", passOrNot(aGrade.getLab2()));
+		System.out.printf("\tmid-term：\t%s\n", passOrNot(aGrade.getMidTerm()));
+		System.out.printf("\tfinal exam：\t%s\n", passOrNot(aGrade.getFinalExam()));
+		System.out.printf("\ttotal grade：\t%s\n", passOrNot(aGrade.getTotalGrade()));
 	}
 	private String passOrNot(int grade) {
 		if (grade >= 60) return Integer.toString(grade);
@@ -61,25 +61,27 @@ public class GradeSystems {
 	}
 	
 	public void showAverage() {
-		float[] grades = new float[5];
+		float[] grades = new float[6];
 		for (Grades value: aList.values()) {
 			grades[0] += value.getLab1();
 			grades[1] += value.getLab2();
 			grades[2] += value.getLab3();
 			grades[3] += value.getMidTerm();
 			grades[4] += value.getFinalExam();
+			grades[5] += value.getTotalGrade();
 		}
 		calculateAndShowAverage(grades);
 	}
 	private void calculateAndShowAverage(float[] grades) {
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 6; i++) {
 			grades[i] /= aList.size();
 		}
-		System.out.printf("班平均：\tlab1：\t%d\n", (int)(Math.round(grades[0])));
-		System.out.printf("\tlab2：\t%d\n", (int)(Math.round(grades[1])));
-		System.out.printf("\tlab3：\t%d\n", (int)(Math.round(grades[2])));
+		System.out.printf("班平均：\tlab1：\t\t%d\n", (int)(Math.round(grades[0])));
+		System.out.printf("\tlab2：\t\t%d\n", (int)(Math.round(grades[1])));
+		System.out.printf("\tlab3：\t\t%d\n", (int)(Math.round(grades[2])));
 		System.out.printf("\tmid-term：\t%d\n", (int)(Math.round(grades[3])));
 		System.out.printf("\tfinal exam：\t%d\n", (int)(Math.round(grades[4])));
+		System.out.printf("\ttotal grade：\t%d\n", (int)(Math.round(grades[5])));
 	}
 	public void updateWeights(){
 		showOldWeights();
@@ -94,16 +96,16 @@ public class GradeSystems {
 	}
 	private void showOldWeights(){
 		System.out.println("\t舊配分");
-		System.out.printf("\tlab1\t%d%%\n", (int)(weights[0]*100));
-		System.out.printf("\tlab2\t%d%%\n", (int)(weights[1]*100));
-		System.out.printf("\tlab3\t%d%%\n", (int)(weights[2]*100));
+		System.out.printf("\tlab1\t\t%d%%\n", (int)(weights[0]*100));
+		System.out.printf("\tlab2\t\t%d%%\n", (int)(weights[1]*100));
+		System.out.printf("\tlab3\t\t%d%%\n", (int)(weights[2]*100));
 		System.out.printf("\tmid-term\t%d%%\n", (int)(weights[3]*100));
 		System.out.printf("\tfinal exam\t%d%%\n", (int)(weights[4]*100));
 	}
 	private float[] getNewWeights() {
 		float[] newWeights = new float[5];
 		
-		System.out.println("\t輸入新配分");
+		System.out.println("\t輸入新配分(提醒：每項需介於0~100之間，五項總和必須等於100)");
 		newWeights[0] = getSpecificWeight("lab1");
 		newWeights[1] = getSpecificWeight("lab2");
 		newWeights[2] = getSpecificWeight("lab3");
@@ -114,7 +116,7 @@ public class GradeSystems {
 	
 	private float getSpecificWeight(String quiz) {
 		Scanner console = new Scanner(System.in);
-		System.out.printf("\t%s\t", quiz);
+		System.out.printf("\t%-16s", quiz);
 		return console.nextFloat();
 	}
 	
@@ -127,12 +129,12 @@ public class GradeSystems {
 	private boolean checkNewWeights(float[] newWeights) {
 		Scanner console = new Scanner(System.in);
 		
-		System.out.printf("\t請確認新配分\n\tlab1\t%d%%\n", (int)(newWeights[0]));
-		System.out.printf("\tlab2\t%d%%\n", (int)(newWeights[1]));
-		System.out.printf("\tlab3\t%d%%\n", (int)(newWeights[2]));
+		System.out.printf("\t請確認新配分\n\tlab1\t\t%d%%\n", (int)(newWeights[0]));
+		System.out.printf("\tlab2\t\t%d%%\n", (int)(newWeights[1]));
+		System.out.printf("\tlab3\t\t%d%%\n", (int)(newWeights[2]));
 		System.out.printf("\tmid-term\t%d%%\n", (int)(newWeights[3]));
 		System.out.printf("\tfinal exam\t%d%%\n", (int)(newWeights[4]));
-		System.out.printf("\t以上正確嗎？Y(Yes) 或 N(No)\n使用者輸入：");
+		System.out.printf("\t以上正確嗎？Y(Yes)或 N(No)");
 		
 		String cmd = console.nextLine().toLowerCase();
 		if (cmd.equals("y") || cmd.equals("yes")) return inRangeOrNot(newWeights);
@@ -144,13 +146,13 @@ public class GradeSystems {
 		for (int i = 0; i < 5; i++) {
 			total += (int)newWeights[i];
 			if ((int)newWeights[i] < 0 || (int)newWeights[i] > 100) {
-				System.out.printf("調整失敗！第%d項超出範圍，請重新輸入\n", i+1);
+				System.out.printf("\t調整失敗！第%d項超出範圍，請重新輸入\n\n", i+1);
 				return false;
 			}
 		}
 		if (total == 100) return true;
 		else {
-			System.out.println("調整失敗！五項總和不等於100，請重新輸入");
+			System.out.print("\t調整失敗！五項總和不等於100，請重新輸入\n\n");
 			return false;
 		}
 }
