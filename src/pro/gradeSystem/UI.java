@@ -50,19 +50,17 @@ public class UI {
 	public UI() throws IOException {	
 		try {
 			aGradeSystem = new GradeSystems();
-			
 			while (true) {
 				String cmdID = promptID().toLowerCase();
-				
 				if (cmdID.equals("q")) {
 					break;
 				} else {
 					int ID = Integer.parseInt(cmdID);
-					
 					if (checkID(ID)) {
 						showWelcomeMsg(ID);
 						promptCommand(ID);
 					}
+					resetWeights();
 				}
 				System.out.println();
 			}
@@ -95,7 +93,7 @@ first:	while (true) {
 				case "G": aGradeSystem.showGrade(ID); break;
 				case "R": aGradeSystem.showRank(ID); break;
 				case "A": aGradeSystem.showAverage(); break;
-				case "W": aGradeSystem.updateWeights(); break;
+				case "W": aGradeSystem.updateWeights(ID); break;
 				case "E": break first;
 				default: throw new NoSuchCommandExceptions("指令錯了！");
 			}
@@ -119,6 +117,10 @@ first:	while (true) {
 		System.out.println("\t3) A 顯示平均 (Average)");
 		System.out.println("\t4) W 更新配分 (Weight)");
 		System.out.println("\t5) E 離開選單 (Exit)");
+	}
+	public void resetWeights(){
+		float[] newWeights = {10f, 10f, 10f, 30f, 40f};
+		aGradeSystem.setWeights(newWeights);
 	}
 }
 

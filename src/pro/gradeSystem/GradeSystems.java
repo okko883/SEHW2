@@ -83,16 +83,16 @@ public class GradeSystems {
 		System.out.printf("\tfinal exam：\t%d\n", (int)(Math.round(grades[4])));
 		System.out.printf("\ttotal grade：\t%d\n", (int)(Math.round(grades[5])));
 	}
-	public void updateWeights(){
+	public void updateWeights(int ID){
 		showOldWeights();
-		while (true) {
-			float[] newWeights = getNewWeights();
-			if (checkNewWeights(newWeights)) {
-				setWeights(newWeights);
-				System.out.println("加權已更新!");
-				return;
-			}
-		}	
+		float[] newWeights = getNewWeights();
+		if (checkNewWeights(newWeights)) {
+			setWeights(newWeights);
+			aList.get(ID).calculateTotalGrade(weights);
+			System.out.println("加權已更新!");	
+		}else{
+			System.out.println("更新加權指令已取消!");
+		}
 	}
 	private void showOldWeights(){
 		System.out.println("\t舊配分");
@@ -120,7 +120,7 @@ public class GradeSystems {
 		return console.nextFloat();
 	}
 	
-	private void setWeights(float[] newWeights) {
+	public void setWeights(float[] newWeights) {
 		for (int i = 0; i < 5; i++) {
 			weights[i] = newWeights[i] / 100.0f;
 		}
