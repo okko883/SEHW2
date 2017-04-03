@@ -19,14 +19,9 @@ public class Main {
 	 * 
 	 * Pseudo Code: 
 	 * 1. 建構aUI進入程式
-	 * 2. 接收可能的錯誤
-	 * 3. 結束程式
+	 * 2. 結束程式
 	 */
 	public static void main(String[] args) {
-		try {
-			UI aUI = new UI();
-		} catch (IOException e) {
-			System.out.println("project根目錄中不存在gradeinput.txt！");
-		}
+		UI aUI = new UI();
 	}
 }

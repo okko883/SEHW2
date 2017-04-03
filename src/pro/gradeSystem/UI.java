@@ -18,6 +18,7 @@ import java.util.Scanner;
  * 4. promptID() // 取得ID
  * 5. showFinishMsg() // 顯示系統結束訊息
  * 6. showWelcomeMsg(ID) // 顯示歡迎資訊及指令選單
+ * 7. resetWeights() // 重設加權數值
  */
 public class UI {
 	private GradeSystems aGradeSystem;
@@ -31,16 +32,15 @@ public class UI {
 	 * 2. while true
 	 * 	1. 透過promptID得到ID輸入
 	 * 	2. 判斷是否為程式結束(Q)
-	 *	3. 若是，則end while
-	 * 	4. 若非，則透過checkID判斷aGradeSystem內有沒有這筆ID
-	 * 	5. 若是，則執行showWelcomeMsg和promptCommand
+	 *		1. 若是，則end while；若非，則透過checkID判斷aGradeSystem內有沒有這筆ID
+	 * 			1. 若是，則執行showWelcomeMsg和promptCommand
 	 * 3. 接收可能的錯誤
 	 * 4. 執行showFinishMsg結束程式
 	 * 
 	 * Time Estimate: (Depends on input)
 	 * Example: UI aUI = new UI(); 建構UI界面並開始與使用者互動
 	 */
-	public UI() throws IOException {	
+	public UI() {	
 		try {
 			aGradeSystem = new GradeSystems();
 			while (true) {
@@ -63,6 +63,8 @@ public class UI {
 			System.out.println("輸入格式內容錯誤！"); 
 		} catch (NoSuchCommandExceptions e) {
 			System.out.println("指令錯了！");
+		} catch (IOException e) {
+			System.out.println("project根目錄中不存在gradeinput.txt！");
 		} finally {
 			showFinishMsg();
 		}
@@ -75,14 +77,13 @@ public class UI {
 	 * 
 	 * @param ID 用來檢查的ID
 	 * @return boolean，若true則這筆ID存在於成績系統內
-	 * @throw NoSuchIDExceptions 若這筆這筆ID不存在於成績系統內，則丟出此例外
+	 * @throws NoSuchIDExceptions 若這筆這筆ID不存在於成績系統內，則丟出此例外
 	 * 
 	 * Pseudo Code: 
 	 * 1. 檢查ID是否在aGradeSystem內
-	 * 2. 若是，則回傳true
-	 * 3. 若非，則丟出NoSuchIDExceptions
+	 * 	1. 若是，則回傳true；若非，則丟出NoSuchIDExceptions
 	 * 
-	 * Example: aUI.checkID(955002056); 回傳true
+	 * Example: checkID(955002056); 回傳true
 	 */
 	private boolean checkID(int ID) throws NoSuchIDExceptions {
 		if (aGradeSystem.containsID(ID)) {
@@ -97,7 +98,7 @@ public class UI {
 	 * 要求使用者輸入指令，並依據指令執行程式
 	 * 
 	 * @param ID 指令指令的ID對象
-	 * @throw NoSuchCommandExceptions 若輸入不存在的指令，則丟出此意外
+	 * @throws NoSuchCommandExceptions 若輸入不存在的指令，則丟出此意外
 	 * 
 	 * Pseudo Code: 
 	 * 1. while true
@@ -109,7 +110,7 @@ public class UI {
 	 * 	6. 若指令爲E，則end while
 	 * 	7. 若非上述指令，則丟出NoSuchCommandExceptions
 	 * 
-	 * Example: aUI.promptCommand(955002056); 要求輸入指令，若輸入R，則顯示排名
+	 * Example: promptCommand(955002056); 要求輸入指令，若輸入R，則顯示排名
 	 */
 	private void promptCommand(int ID) throws NoSuchCommandExceptions {
 		Scanner console = new Scanner(System.in);
@@ -139,7 +140,7 @@ first:	while (true) {
 	 * 1. 要求輸入ID或Q
 	 * 2. 回傳下一行輸入內容
 	 * 
-	 * Example: aUI.promptID(); 要求輸入ID，若輸入955002056，則回傳"955002056"
+	 * Example: promptID(); 要求輸入ID，若輸入955002056，則回傳"955002056"
 	 */
 	private String promptID() {
 		System.out.printf("輸入 ID 或 Q(結束使用)？");
@@ -155,7 +156,7 @@ first:	while (true) {
 	 * Pseudo Code: 
 	 * 1. 印出系統結束訊息
 	 * 
-	 * Example: aUI.showFinishMsg(); 印出"結束了"
+	 * Example: showFinishMsg(); 印出"結束了"
 	 */
 	private void showFinishMsg() {
 		System.out.println("結束了");
@@ -171,7 +172,7 @@ first:	while (true) {
 	 * Pseudo Code: 
 	 * 1. 印出歡迎訊息及功能選單
 	 * 
-	 * Example: aUI.showWelcomeMsg(955002056); 顯示"Welcome 許文馨..."
+	 * Example: showWelcomeMsg(955002056); 顯示「Welcome 許文馨...」
 	 */
 	private void showWelcomeMsg(int ID) {
 		System.out.printf("Welcome %s\n", aGradeSystem.getThisIDName(ID));
@@ -181,7 +182,20 @@ first:	while (true) {
 		System.out.println("\t4) W 更新配分 (Weight)");
 		System.out.println("\t5) E 離開選單 (Exit)");
 	}
-	public void resetWeights(){
+	
+	/*
+	 * method resetWeights()
+	 * ---
+	 * 重設加權數值
+	 * 
+	 * Pseudo Code: 
+	 * 1. 創建一個陣列，內容爲預設的加權
+	 * 2. 將本系統的加權更新爲預設加權
+	 * 
+	 * Time Estimate: O(1)
+	 * Example: aUI.resetWeights(); 加權會回復成預設狀態
+	 */
+	public void resetWeights() {
 		float[] newWeights = {10f, 10f, 10f, 30f, 40f};
 		aGradeSystem.setWeights(newWeights);
 	}
