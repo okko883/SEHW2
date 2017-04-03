@@ -19,7 +19,6 @@ import java.util.Scanner;
  * 5. showFinishMsg() // 顯示系統結束訊息
  * 6. showWelcomeMsg(ID) // 顯示歡迎資訊及指令選單
  */
-
 public class UI {
 	private GradeSystems aGradeSystem;
 	
