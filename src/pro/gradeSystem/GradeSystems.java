@@ -117,7 +117,7 @@ public class GradeSystems {
 		Grades aGrade = aList.get(ID);
 		System.out.printf("%3s成績：lab1：\t\t%s\n", aGrade.getName(), passOrNot(aGrade.getLab1()));
 		System.out.printf("\tlab2：\t\t%s\n", passOrNot(aGrade.getLab2()));
-		System.out.printf("\tlab3：\t\t%s\n", passOrNot(aGrade.getLab2()));
+		System.out.printf("\tlab3：\t\t%s\n", passOrNot(aGrade.getLab3()));
 		System.out.printf("\tmid-term：\t%s\n", passOrNot(aGrade.getMidTerm()));
 		System.out.printf("\tfinal exam：\t%s\n", passOrNot(aGrade.getFinalExam()));
 		System.out.printf("\ttotal grade：\t%s\n", passOrNot(aGrade.getTotalGrade()));
