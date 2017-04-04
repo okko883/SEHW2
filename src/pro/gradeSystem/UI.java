@@ -10,6 +10,7 @@ import java.util.Scanner;
  * 
  * Member Data: 
  * 1. aGradeSystem // 成績系統物件
+ * 2. console // 終端輸入的處理物件
  * 
  * Member Function: 
  * 1. UI() // 建構子，作爲成績系統的進入點

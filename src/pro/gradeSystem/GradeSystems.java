@@ -12,9 +12,10 @@ import java.util.Scanner;
  * Member Data: 
  * 1. weights // 本系統的加權數值
  * 2. aList // 本成績資料庫儲存成績資料的物件
+ * 3. console // 終端輸入的處理物件
  * 
  * Member Function: 
- * 1. GradeSystems() // 建構子，將讀取gradeinput.txt內的資料建構本成績資料庫
+ * 1. GradeSystems(parentConsole) // 建構子，將讀取gradeinput.txt內的資料建構本成績資料庫
  * 2. containsID(ID) // 查詢本系統是否有ID這筆資料
  * 3. showGrade(ID) // 印出ID這筆資料的成績
  * 4. passOrNot(grade) // 爲印出的成績進行文字裝飾
@@ -53,8 +54,8 @@ public class GradeSystems {
 	 * Time Estimate: O(n)
 	 * Example: GradeSystems aGradeSystems = new GradeSystems(); 將創造一個GradeSystems，並讀取gradeinput.txt內的資料建構一個成績資料庫
 	 */
-	public GradeSystems(Scanner sc) throws NumberFormatException, IOException {
-		console = sc;
+	public GradeSystems(Scanner parentConsole) throws NumberFormatException, IOException {
+		console = parentConsole;
 		String path = "gradeinput.txt";
 		File file = new File(path);
 		InputStreamReader inReader = new InputStreamReader(new FileInputStream(file), "UTF-8");
@@ -77,6 +78,7 @@ public class GradeSystems {
 			Grades aGrade = new Grades(ID, name, lab1, lab2, lab3, midTerm, finalExam, weights);
 			aList.put(ID, aGrade);
 		}
+		br.close();
 	}
 	
 	/*

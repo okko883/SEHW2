@@ -13,8 +13,8 @@ import org.junit.Test;
 
 public class UITest {
 	private UI testUI;
-	private InputStream stdin = System.in;
-	private PrintStream stdout = System.out;
+	private final InputStream stdin = System.in;
+	private final PrintStream stdout = System.out;
 
 	@Before
 	public void setUp() throws Exception {
