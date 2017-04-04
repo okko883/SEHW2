@@ -71,9 +71,4 @@ public class UITest {
 		assertEquals(assertResult, outContent.toString());
 	}
 
-	@Test
-	public void testResetWeights() {
-		fail("Not yet implemented");
-	}
-
 }

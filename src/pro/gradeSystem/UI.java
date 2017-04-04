@@ -191,10 +191,9 @@ first:	while (true) {
 	 * 1. 創建一個陣列，內容爲預設的加權
 	 * 2. 將本系統的加權更新爲預設加權
 	 * 
-	 * Time Estimate: O(1)
 	 * Example: aUI.resetWeights(); 加權會回復成預設狀態
 	 */
-	public void resetWeights() {
+	private void resetWeights() {
 		float[] newWeights = {10f, 10f, 10f, 30f, 40f};
 		aGradeSystem.setWeights(newWeights);
 	}
