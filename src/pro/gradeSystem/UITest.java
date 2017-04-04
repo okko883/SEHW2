@@ -47,6 +47,29 @@ public class UITest {
 		testUI = new UI();
 		assertEquals(assertResult, outContent.toString());
 	}
+	
+	@Test
+	public void testUI_2() {
+		String testCase = "955002056\nR\nE\nQ\n";
+		System.setIn(new ByteArrayInputStream(testCase.getBytes()));
+		
+		String assertResult = "輸入 ID 或 Q(結束使用)？"
+				+ "Welcome 許文馨\n"
+				+ "輸入指令\t1) G 顯示成績 (Grade)\n"
+				+ "\t2) R 顯示排名 (Rank)\n"
+				+ "\t3) A 顯示平均 (Average)\n"
+				+ "\t4) W 更新配分 (Weight)\n"
+				+ "\t5) E 離開選單 (Exit)\n"
+				+ "使用者輸入："
+				+ "許文馨排名第9\n"
+				+ "使用者輸入："
+				+ "輸入 ID 或 Q(結束使用)？結束了\n";
+		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(outContent));
+		
+		testUI = new UI();
+		assertEquals(assertResult, outContent.toString());
+	}
 
 	@Test
 	public void testResetWeights() {
