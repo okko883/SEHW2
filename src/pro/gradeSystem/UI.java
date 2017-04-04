@@ -22,6 +22,7 @@ import java.util.Scanner;
  */
 public class UI {
 	private GradeSystems aGradeSystem;
+	private Scanner console;
 	
 	/* method UI()
 	 * ---
@@ -42,7 +43,8 @@ public class UI {
 	 */
 	public UI() {	
 		try {
-			aGradeSystem = new GradeSystems();
+			console = new Scanner(System.in);
+			aGradeSystem = new GradeSystems(console);
 			while (true) {
 				String cmdID = promptID().toLowerCase();
 				if (cmdID.equals("q")) {
@@ -55,7 +57,6 @@ public class UI {
 					}
 					resetWeights();
 				}
-				System.out.println();
 			}
 		} catch (NoSuchIDExceptions e) {
 			System.out.println("ID錯了！"); 
@@ -67,6 +68,7 @@ public class UI {
 			System.out.println("project根目錄中不存在gradeinput.txt！");
 		} finally {
 			showFinishMsg();
+			console.close();
 		}
 	}
 
@@ -112,9 +114,7 @@ public class UI {
 	 * 
 	 * Example: promptCommand(955002056); 要求輸入指令，若輸入R，則顯示排名
 	 */
-	private void promptCommand(int ID) throws NoSuchCommandExceptions {
-		Scanner console = new Scanner(System.in);
-		
+	private void promptCommand(int ID) throws NoSuchCommandExceptions {		
 first:	while (true) {
 			System.out.printf("使用者輸入：");
 			String cmd = console.nextLine().toUpperCase();
@@ -144,7 +144,6 @@ first:	while (true) {
 	 */
 	private String promptID() {
 		System.out.printf("輸入 ID 或 Q(結束使用)？");
-		Scanner console = new Scanner(System.in);
 		return console.nextLine();
 	}
 	

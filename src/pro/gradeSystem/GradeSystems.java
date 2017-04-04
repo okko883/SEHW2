@@ -33,6 +33,7 @@ import java.util.Scanner;
 public class GradeSystems {
 	private float[] weights = {0.1f, 0.1f, 0.1f, 0.3f, 0.4f};
 	private HashMap<Integer, Grades> aList = new HashMap<>();
+	private Scanner console;
 	
 	/*
 	 * method GradeSystems()
@@ -52,7 +53,8 @@ public class GradeSystems {
 	 * Time Estimate: O(n)
 	 * Example: GradeSystems aGradeSystems = new GradeSystems(); 將創造一個GradeSystems，並讀取gradeinput.txt內的資料建構一個成績資料庫
 	 */
-	public GradeSystems() throws NumberFormatException, IOException {
+	public GradeSystems(Scanner sc) throws NumberFormatException, IOException {
+		console = sc;
 		String path = "gradeinput.txt";
 		File file = new File(path);
 		InputStreamReader inReader = new InputStreamReader(new FileInputStream(file), "UTF-8");
@@ -305,9 +307,8 @@ public class GradeSystems {
 	 * Example: getSpecificWeight("lab1"); 印出「lab1」後，使用者輸入10，最後回傳10
 	 */
 	private float getSpecificWeight(String quiz) {
-		Scanner console = new Scanner(System.in);
 		System.out.printf("\t%-16s", quiz);
-		return console.nextFloat();
+		return Float.parseFloat(console.nextLine());
 	}
 	
 	/*
@@ -347,8 +348,6 @@ public class GradeSystems {
 	 * Example: checkNewWeights({10, 15, 20, 25, 30}); 印出「請確認新配分...」後，使用者輸入Yes，則回傳true
 	 */
 	private boolean checkNewWeights(float[] newWeights) {
-		Scanner console = new Scanner(System.in);
-		
 		System.out.printf("\t請確認新配分\n\tlab1\t\t%d%%\n", (int)(newWeights[0]));
 		System.out.printf("\tlab2\t\t%d%%\n", (int)(newWeights[1]));
 		System.out.printf("\tlab3\t\t%d%%\n", (int)(newWeights[2]));
