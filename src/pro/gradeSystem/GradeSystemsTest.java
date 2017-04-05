@@ -44,8 +44,18 @@ import org.junit.Test;
  * 18. testGetThisIDName_2() // method getThisIDName(ID)測試2
  */
 public class GradeSystemsTest {
+	/**
+	 * @uml.property  name="testGS"
+	 * @uml.associationEnd  
+	 */
 	private GradeSystems testGS;
+	/**
+	 * @uml.property  name="stdin"
+	 */
 	private final InputStream stdin = System.in;
+	/**
+	 * @uml.property  name="stdout"
+	 */
 	private final PrintStream stdout = System.out;
 
 	/*

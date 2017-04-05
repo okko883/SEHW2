@@ -47,10 +47,31 @@ import org.junit.Test;
  * 22. testGetTotalGrade_2() // method getTotalGrade()測試2
  */
 public class GradesTest {
-	private Grades testGd_1, testGd_2;
+	/**
+	 * @uml.property  name="testGd_1"
+	 * @uml.associationEnd  
+	 */
+	private Grades testGd_1;
+	/**
+	 * @uml.property  name="testGd_2"
+	 * @uml.associationEnd  
+	 */
+	private Grades testGd_2;
+	/**
+	 * @uml.property  name="stdin"
+	 */
 	private final InputStream stdin = System.in;
+	/**
+	 * @uml.property  name="stdout"
+	 */
 	private final PrintStream stdout = System.out;
+	/**
+	 * @uml.property  name="weight_1" multiplicity="(0 -1)" dimension="1"
+	 */
 	private final float[] weight_1 = {0.12f, 0.34f, 0.56f, 0.78f, 0.90f};
+	/**
+	 * @uml.property  name="weight_2" multiplicity="(0 -1)" dimension="1"
+	 */
 	private final float[] weight_2 = {0.1f, 0.1f, 0.1f, 0.3f, 0.4f};
 
 	/*

@@ -28,9 +28,38 @@ package pro.gradeSystem;
  * 10. getTotalGrade() // 取得本項目學生的加權成績
  */
 public class Grades {
+	/**
+	 * @uml.property  name="iD"
+	 */
 	private int ID;
+	/**
+	 * @uml.property  name="name"
+	 */
 	private String name;
-	private int lab1, lab2, lab3, midTerm, finalExam, totalGrade;
+	/**
+	 * @uml.property  name="lab1"
+	 */
+	private int lab1;
+	/**
+	 * @uml.property  name="lab2"
+	 */
+	private int lab2;
+	/**
+	 * @uml.property  name="lab3"
+	 */
+	private int lab3;
+	/**
+	 * @uml.property  name="midTerm"
+	 */
+	private int midTerm;
+	/**
+	 * @uml.property  name="finalExam"
+	 */
+	private int finalExam;
+	/**
+	 * @uml.property  name="totalGrade"
+	 */
+	private int totalGrade;
 	
 	/*
 	 * method Grades(ID, name, lab1, lab2, lab3, midTerm, finalExam, weight)
@@ -96,6 +125,10 @@ public class Grades {
 	 * Time Estimate： O(1)
 	 * Example: XiaoMing.getName(); 回傳"小明"
 	 */
+	/**
+	 * @return
+	 * @uml.property  name="name"
+	 */
 	public String getName() {
 		return name;
 	}
@@ -112,6 +145,10 @@ public class Grades {
 	 * 
 	 * Time Estimate： O(1)
 	 * Example: XiaoMing.getID(); 回傳1234
+	 */
+	/**
+	 * @return
+	 * @uml.property  name="iD"
 	 */
 	public int getID() {
 		return ID;
@@ -130,6 +167,10 @@ public class Grades {
 	 * Time Estimate： O(1)
 	 * Example: XiaoMing.getLab1(); 回傳10
 	 */
+	/**
+	 * @return
+	 * @uml.property  name="lab1"
+	 */
 	public int getLab1() {
 		return lab1;
 	}
@@ -146,6 +187,10 @@ public class Grades {
 	 * 
 	 * Time Estimate： O(1)
 	 * Example: XiaoMing.getLab2(); 回傳20
+	 */
+	/**
+	 * @return
+	 * @uml.property  name="lab2"
 	 */
 	public int getLab2() {
 		return lab2;
@@ -164,6 +209,10 @@ public class Grades {
 	 * Time Estimate： O(1)
 	 * Example: XiaoMing.getLab3(); 回傳30
 	 */
+	/**
+	 * @return
+	 * @uml.property  name="lab3"
+	 */
 	public int getLab3() {
 		return lab3;
 	}
@@ -180,6 +229,10 @@ public class Grades {
 	 * 
 	 * Time Estimate： O(1)
 	 * Example: XiaoMing.getMidTerm(); 回傳40
+	 */
+	/**
+	 * @return
+	 * @uml.property  name="midTerm"
 	 */
 	public int getMidTerm() {
 		return midTerm;
@@ -198,6 +251,10 @@ public class Grades {
 	 * Time Estimate： O(1)
 	 * Example: XiaoMing.getFinalExam(); 回傳50
 	 */
+	/**
+	 * @return
+	 * @uml.property  name="finalExam"
+	 */
 	public int getFinalExam() {
 		return finalExam;
 	}
@@ -214,6 +271,10 @@ public class Grades {
 	 * 
 	 * Time Estimate： O(1)
 	 * Example: XiaoMing.getTotalGrade(); 回傳小明加權後的成績
+	 */
+	/**
+	 * @return
+	 * @uml.property  name="totalGrade"
 	 */
 	public int getTotalGrade() {
 		return totalGrade;

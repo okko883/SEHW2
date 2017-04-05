@@ -26,7 +26,13 @@ import org.junit.Test;
  * 3. testIntegration_2() // Integration Test 2
  */
 public class MainTest {
+	/**
+	 * @uml.property  name="stdin"
+	 */
 	private final InputStream stdin = System.in;
+	/**
+	 * @uml.property  name="stdout"
+	 */
 	private final PrintStream stdout = System.out;
 
 	/*

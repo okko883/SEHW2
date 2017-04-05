@@ -22,7 +22,14 @@ import java.util.Scanner;
  * 7. resetWeights() // 重設加權數值
  */
 public class UI {
+	/**
+	 * @uml.property  name="aGradeSystem"
+	 * @uml.associationEnd  multiplicity="(1 1)"
+	 */
 	private GradeSystems aGradeSystem;
+	/**
+	 * @uml.property  name="console"
+	 */
 	private Scanner console;
 	
 	/* method UI()

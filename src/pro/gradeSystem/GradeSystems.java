@@ -32,8 +32,18 @@ import java.util.Scanner;
  * 15. getThisIDName(ID) // 取得ID對應的名字
  */
 public class GradeSystems {
+	/**
+	 * @uml.property  name="weights" multiplicity="(0 -1)" dimension="1"
+	 */
 	private float[] weights = {0.1f, 0.1f, 0.1f, 0.3f, 0.4f};
+	/**
+	 * @uml.property  name="aList"
+	 * @uml.associationEnd  qualifier="valueOf:java.lang.Integer pro.gradeSystem.Grades"
+	 */
 	private HashMap<Integer, Grades> aList = new HashMap<>();
+	/**
+	 * @uml.property  name="console"
+	 */
 	private Scanner console;
 	
 	/*

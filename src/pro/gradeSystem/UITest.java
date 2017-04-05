@@ -30,7 +30,13 @@ import org.junit.Test;
  * 7. testNoSuchIDExceptions_2() // NoSuchIDExceptions.NoSuchIDExceptions()測試2
  */
 public class UITest {
+	/**
+	 * @uml.property  name="stdin"
+	 */
 	private final InputStream stdin = System.in;
+	/**
+	 * @uml.property  name="stdout"
+	 */
 	private final PrintStream stdout = System.out;
 
 	/*
