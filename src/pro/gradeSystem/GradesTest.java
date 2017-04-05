@@ -27,8 +27,8 @@ import org.junit.Test;
  * 2. tearDown() // 結束測試後清理
  * 3. testGrades_1() // method Grades()測試1
  * 4. testGrades_2() // method Grades()測試2
- * 5. testCalculateTotalGrade_1() // method calculateTotalGrade()測試1
- * 6. testCalculateTotalGrade_2() // method calculateTotalGrade()測試2 
+ * 5. testCalculateTotalGrade_1() // method calculateTotalGrade(weight)測試1
+ * 6. testCalculateTotalGrade_2() // method calculateTotalGrade(weight)測試2 
  * 7. testGetName_1() // method getName()測試1
  * 8. testGetName_2() // method getName()測試2
  * 9. testGetID_1() // method getID()測試1
@@ -148,7 +148,7 @@ public class GradesTest {
 	/*
 	 * method testCalculateTotalGrade_1()
 	 * ---
-	 * method calculateTotalGrade()測試1
+	 * method calculateTotalGrade(weight)測試1
 	 * 
 	 * Pseudo Code: 
 	 * 1. 令testGd_1的totalGrade以{0f, 0f, 0f, 0f, 0f, 0f}計算
@@ -166,7 +166,7 @@ public class GradesTest {
 	/*
 	 * method testCalculateTotalGrade_2()
 	 * ---
-	 * method calculateTotalGrade()測試2
+	 * method calculateTotalGrade(weight)測試2
 	 * 
 	 * Pseudo Code: 
 	 * 1. 令testGd_1的totalGrade以weight_2計算
