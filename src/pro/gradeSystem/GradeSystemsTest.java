@@ -90,12 +90,12 @@ public class GradeSystemsTest {
 	 * 5. 檢查終端輸出是否與預期一致
 	 * 
 	 * Terminal Input Test Case: 
-	 * 10
-	 * 15
-	 * 20
-	 * 25
-	 * 30
-	 * Yes
+	 * 10 // lab1新加權
+	 * 15 // lab2新加權
+	 * 20 // lab3新加權
+	 * 25 // midTerm新加權
+	 * 30 // finalExam新加權
+	 * Yes // 確認輸入無誤
 	 */
 	@Test
 	public void testGradeSystems_1() {
@@ -148,12 +148,12 @@ public class GradeSystemsTest {
 	 * 5. 檢查終端輸出是否與預期一致
 	 * 
 	 * Terminal Input Test Case: 
-	 * 123
-	 * 456
-	 * 789
-	 * 012
-	 * 345
-	 * Yes
+	 * 123 // lab1新加權
+	 * 456 // lab2新加權
+	 * 789 // lab3新加權
+	 * 012 // midTerm新加權
+	 * 345 // finalExam新加權
+	 * Yes // 確認輸入無誤
 	 */
 	@Test
 	public void testGradeSystems_2() {
@@ -349,12 +349,12 @@ public class GradeSystemsTest {
 	 * 6. 檢查終端輸出是否與預期一致
 	 * 
 	 * Terminal Input Test Case: 
-	 * 0
-	 * 100
-	 * 0
-	 * 0
-	 * 0
-	 * Yes
+	 * 0 // lab1新加權
+	 * 100 // lab2新加權
+	 * 0 // lab3新加權
+	 * 0 // midTerm新加權
+	 * 0 // finalExam新加權
+	 * Yes // 確認輸入無誤
 	 */
 	@Test
 	public void testShowAverage_2() {
@@ -414,12 +414,12 @@ public class GradeSystemsTest {
 	 * 5. 檢查終端輸出是否與預期一致
 	 * 
 	 * Terminal Input Test Case: 
-	 * 0
-	 * 100
-	 * 0
-	 * 0
-	 * 0
-	 * Yes
+	 * 0 // lab1新加權
+	 * 100 // lab2新加權
+	 * 0 // lab3新加權
+	 * 0 // midTerm新加權
+	 * 0 // finalExam新加權
+	 * Yes // 確認輸入無誤
 	 */
 	@Test
 	public void testUpdateWeights_1() {
@@ -472,12 +472,12 @@ public class GradeSystemsTest {
 	 * 5. 檢查終端輸出是否與預期一致
 	 * 
 	 * Terminal Input Test Case: 
-	 * -100
-	 * 100
-	 * 0
-	 * 0
-	 * 0
-	 * Yes
+	 * -100 // lab1新加權
+	 * 100 // lab2新加權
+	 * 0 // lab3新加權
+	 * 0 // midTerm新加權
+	 * 0 // finalExam新加權
+	 * Yes // 確認輸入無誤
 	 */
 	@Test
 	public void testUpdateWeights_2() {
@@ -532,12 +532,12 @@ public class GradeSystemsTest {
 	 * 6. 檢查終端輸出是否與預期一致
 	 * 
 	 * Terminal Input Test Case: 
-	 * -100
-	 * 100
-	 * 0
-	 * 0
-	 * 0
-	 * Yes
+	 * -100 // lab1新加權-100
+	 * 100 // lab2新加權100
+	 * 0 // lab3新加權0
+	 * 0 // midTerm新加權0
+	 * 0 // finalExam新加 0
+	 * Yes // 確認輸入無誤
 	 */
 	@Test
 	public void testSetWeights_1() {
@@ -594,12 +594,12 @@ public class GradeSystemsTest {
 	 * 6. 檢查終端輸出是否與預期一致
 	 * 
 	 * Terminal Input Test Case: 
-	 * -100
-	 * 100
-	 * 0
-	 * 0
-	 * 0
-	 * Yes
+	 * -100 // lab1新加權-100
+	 * 100 // lab2新加權100
+	 * 0 // lab3新加權0
+	 * 0 // midTerm新加權0
+	 * 0 // finalExam新加 0
+	 * Yes // 確認輸入無誤
 	 */
 	@Test
 	public void testSetWeights_2() {

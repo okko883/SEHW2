@@ -11,20 +11,64 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/*
+ * class MainTest
+ * ---
+ * 本系統的JUnit Integration Test
+ * 
+ * Member Data: 
+ * 1. stdin // 修改前的System.in
+ * 2. stdout // 修改前的System.out
+ * 
+ * Member Function: 
+ * 1. tearDown() // 結束測試後的清理
+ * 2. testIntegration_1() // Integration Test 1
+ * 3. testIntegration_2() // Integration Test 2
+ */
 public class MainTest {
 	private final InputStream stdin = System.in;
 	private final PrintStream stdout = System.out;
 
-	@Before
-	public void setUp() throws Exception {
-	}
-
+	/*
+	 * method tearDown()
+	 * ---
+	 * 結束測試後的清理
+	 * 
+	 * Pseudo Code: 
+	 * 1. 回復System.in及System.out的原始設定
+	 */
 	@After
 	public void tearDown() throws Exception {
 		System.setIn(stdin);
 		System.setOut(stdout);
 	}
-
+	
+	/*
+	 * method testIntegration_1()
+	 * ---
+	 * Integration Test 1
+	 * 
+	 * Pseudo Code: 
+	 * 1. 將System.in設爲testCase的InputStream
+	 * 2. 將終端輸出導至outContent
+	 * 3. 執行Main.main()
+	 * 4. 檢查終端輸出是否與預期一致
+	 * 
+	 * Terminal Input Test Case: 
+	 * 985002201 // 輸入學號
+	 * G // 1) G 顯示成績 (Grade)
+	 * R // 2) R 顯示排名 (Rank)
+	 * A // 3) A 顯示平均 (Average)
+	 * W // 4) W 更新配分 (Weight)
+	 * 10 // lab1新加權
+	 * 15 // lab2新加權
+	 * 20 // lab3新加權
+	 * 25 // midTerm新加權
+	 * 30 // finalExam新加權
+	 * No // 取消更新加權
+	 * E // 5) E 離開選單 (Exit)
+	 * Q // 離開系統
+	 */
 	@Test
 	public void testIntegration_1() {
 		String testCase = "985002201\nG\nR\nA\nW\n10\n15\n20\n25\n30\nNo\nE\nQ\n";
@@ -83,6 +127,34 @@ public class MainTest {
 		assertEquals(assertResult, outContent.toString());
 	}
 	
+	/*
+	 * method testIntegration_2()
+	 * ---
+	 * Integration Test 2
+	 * 
+	 * Pseudo Code: 
+	 * 1. 將System.in設爲testCase的InputStream
+	 * 2. 將終端輸出導至outContent
+	 * 3. 執行Main.main()
+	 * 4. 檢查終端輸出是否與預期一致
+	 * 
+	 * Terminal Input Test Case: 
+	 * 962001051 // 輸入學號
+	 * G // 1) G 顯示成績 (Grade)
+	 * R // 2) R 顯示排名 (Rank)
+	 * A // 3) A 顯示平均 (Average)
+	 * W // 4) W 更新配分 (Weight)
+	 * 0 // lab1新加權
+	 * 100 // lab2新加權
+	 * 0 // lab3新加權
+	 * 0 // midTerm新加權
+	 * 0 // finalExam新加權
+	 * Yes // 確認更新加權
+	 * G // 1) G 顯示成績 (Grade)
+	 * A // 3) A 顯示平均 (Average)
+	 * E // 5) E 離開選單 (Exit)
+	 * Q // 離開系統
+	 */
 	@Test
 	public void testIntegration_2() {
 		String testCase = "962001051\nG\nR\nA\nW\n0\n100\n0\n0\n0\nYes\nG\nA\nE\nQ\n";
